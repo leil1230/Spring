@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="greetingAdvice" class="com.smart.beforeadvice.GreetingBeforeAdvie"/>
+    <bean id="afterAdvice" class="com.smart.beforeadvice.GreetingAfterAdvice"/>
+    <bean id="target" class="com.smart.beforeadvice.NaiveWaiter"/>
+    <bean id="waiterProxy" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="greetingAdvice,afterAdvice"
+          p:target-ref="target"
+          p:proxyTargetClass="true"/>   <!-- 默认会对类进行代理，使用CGLib动态代理 -->
+
+    <bean id="targetHelloWorld" class="com.smart.aroundadvice.HelloWorld"/>
+    <bean id="aroundAdvice" class="com.smart.aroundadvice.SayHiAroundAdvice"/>
+    <bean id="proxyHelloWorld" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="aroundAdvice"
+          p:target-ref="targetHelloWorld"
+          p:proxyTargetClass="true"/>
+
+    <bean id="transactionManager" class="com.smart.throwadvice.TransactionManager"/>
+    <bean id="forumServiceTarget" class="com.smart.throwadvice.ForumService"/>
+    <bean id="forumServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="transactionManager"
+          p:target-ref="forumServiceTarget"
+          p:proxyTargetClass="true"/>
+
+</beans>

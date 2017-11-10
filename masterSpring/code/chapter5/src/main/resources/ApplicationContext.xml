@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:component-scan base-package="com.smart"/>
+    <bean id="userServiceFactoryBean" class="com.smart.dynamiccreatebean.UserServiceFactoryBean"/>
+
+
+    <bean id="carFactory" class="com.smart.factoryinject.CarFactory"/>
+
+
+
+    <!-- 工厂方法注入 -->
+    <!--
+        factory-bean:指定工厂类
+        factory-method:指定工厂类中创建car的工厂方法
+    -->
+    <!--
+    <bean id="car" factory-bean="carFactory" factory-method="createAudiCar"/>
+    -->
+
+    <!-- 静态工厂方法 -->
+    <!--
+        class:指定工厂类
+        factory-method:指定工厂类中创建car的静态工厂方法
+    -->
+    <bean id="car" class="com.smart.factoryinject.CarFactory" factory-method="createAudiCar"/>
+
+
+
+    <bean id="boss2" class="com.smart.funinject.Boss2"/>
+
+    <bean id="boss1" class="com.smart.funinject.Boss1">
+        <replaced-method name="Talk" replacer="boss2"/>
+    </bean>
+
+
+    <bean id="car1" class="com.smart.factorybean.CarFactoryBean"
+          p:carInfo="Audi,300,700000.00"/>
+
+
+</beans>

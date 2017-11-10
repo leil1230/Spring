@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="car" class="com.smart.Car"
+          scope="prototype"
+          init-method="myInit"
+          destroy-method="myDestory"
+          p:brand="红旗"
+    />
+
+    <!-- 工厂后处理器 -->
+    <bean id="myBeanFactoryPostProcessor" class="com.smart.beanfactory.MyBeanFactoryPostProcessor"/>
+
+    <!-- 注册Bean后处理器 -->
+    <bean id="myBeanPostProcessor" class="com.smart.beanfactory.MyBeanPostProcessor"/>
+
+    <bean id="apple" class="com.smart.Apple" scope="prototype">
+        <constructor-arg name="color" value="红色"/>
+        <constructor-arg name="flavour" value="甜"/>
+    </bean>
+
+
+</beans>

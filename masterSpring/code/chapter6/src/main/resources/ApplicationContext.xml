@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <!-- 配置自动注册属性编辑器的CustomEditorConfigurer -->
+    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+        <property name="customEditors">
+            <map>
+                <entry key="com.smart.propertyeditor.Car" value="com.smart.propertyeditor.CustomCarEditor"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="boss" class="com.smart.propertyeditor.Boss"
+          p:car="Audi,300"/>
+
+    <bean id="myResource1" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>com.smart.resourcebundle.fmt_resource</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="myResource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>com/smart/resourcebundle/fmt_resource</value>
+            </list>
+        </property>
+        <property name="cacheSeconds" value="20"/>
+    </bean>
+
+    <!-- 自动扫描 -->
+    <context:component-scan base-package="com.smart.mailsender"/>
+
+
+
+
+</beans>
